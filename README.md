@@ -1,70 +1,67 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Création du plugin
 
-## Available Scripts
+Au départ j'avais utilisé au sein du component TableX ( le composant principal se trouvant dans le fichier table-x.js faker.js pour initialiser de fausses données).
 
-In the project directory, you can run:
+```javascript
+import { faker, fakerEN_US } from '@faker-js/faker';
+```
 
-### `npm start`
+Vous pouvez voir ci-dessous l'utilisation de setData qui sous-entend que j'ai une variable de state local data dans ce component.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```javascript
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+useEffect(() => {
+    for(let i = 0; i < 30; i++){
+        fakeData.push({
+            firstName: faker.person.firstName(),
+            lastName: faker.person.lastName('female'),
+            startDate : faker.date.past({ years: 10 }).toString(),
+            department: faker.commerce.department(),
+            dateOfBirth: faker.date.past({ years: 40 }).toString(),
+            street: fakerEN_US.location.street(),
+            city: fakerEN_US.location.city(),
+            state: fakerEN_US.location.state(),
+            zipCode: fakerEN_US.location.zipCode()
+        })
+    }
+    setData([...fakeData])
+}, [])
 
-### `npm test`
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## La syntaxe des informations délivrées à TableX
 
-### `npm run build`
+Quand via les props vous passez des données à TableX vous devez les écrires de la façon suivante :  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javascript
+    // en dur 
+    const list = [
+        {
+            value: 25,
+            name : "25"
+        },
+        {
+            value : 50,
+            name : "50"
+        },
+        {
+            value : 100,
+            name : "100"
+        }
+    ]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   // en dur
+    const columns= [
+        { title: 'First Name', data: 'firstName' },
+        { title: 'Last Name', data: 'lastName'},
+        { title: 'Start Date', data: 'startDate' },
+        { title: 'Department', data: 'department' },
+        { title: 'Date of Birth', data: 'dateOfBirth'},
+        { title: 'Street', data: 'street'},
+        { title: 'City', data: 'city'},
+        { title: 'State', data: 'state'},
+        { title: 'Zip Code', data: 'zipCode'},
+    ]
+```

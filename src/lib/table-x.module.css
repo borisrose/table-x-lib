@@ -1,0 +1,139 @@
+.container{
+
+
+    width: 100%;
+ 
+}
+
+.topContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.lowerContainer {
+    display: flex;
+    flex-direction: column;
+ 
+  
+}
+
+.bodyTableContainer::before {
+
+    content: "";
+    background-color: black;
+    width: 100%;
+    position: absolute;
+    height: 2px;
+    top:0;
+    left: 0;
+    right: 0;
+
+}
+
+.bodyTableContainer::after {
+
+    content: "";
+    background-color: black;
+    width: 100%;
+    position: absolute;
+    height: 2px;
+    bottom:0;
+    left: 0;
+    right: 0;
+}
+
+.bodyTableContainer {
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+ 
+    height: 100%;
+
+}
+
+.dataTableContainer {
+
+    display: flex;
+
+    justify-content: space-evenly;
+
+
+}
+
+.dataTableContainer td {
+
+    width: 200px;
+    overflow: hidden;
+    border: solid black 1px;
+    background-color: lightgoldenrodyellow;
+    padding: 10px;
+}
+
+.headerTableContainer {
+
+
+    overflow: hidden;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    border: solid rgb(9, 9, 9) 1px;
+    background-color: lightslategray;
+    justify-content: space-evenly;
+   
+    
+}
+
+.caretsContainer {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.columnsContainer {
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.icon {
+
+    opacity: 0.8;
+
+}
+
+ 
+.icon:hover {
+
+    opacity: 1;
+    cursor: pointer;
+}
+
+.containerFooter {
+
+    display: flex;
+
+    padding: 20px;
+    margin: 10px 0;
+    justify-content: space-between;
+}
+
+
+.pageNavigationContainer {
+
+    display: flex;
+    
+}
+.pageNavigationContainer button {
+
+    margin: 0 20px;
+}
+
+.entriesInfoContainer {
+
+    display: flex;
+}
