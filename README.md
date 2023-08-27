@@ -1,5 +1,23 @@
 # Getting Started with Create React App
 
+## Pré-requis
+
+Install the following :
+
+```bash
+
+   npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons" @fortawesome/react-fontawesome"
+
+```
+
+## installation
+
+```bash
+
+npm install table-x-library
+
+```
+
 ## Création du plugin
 
 Au départ j'avais utilisé au sein du component TableX ( le composant principal se trouvant dans le fichier table-x.js faker.js pour initialiser de fausses données).

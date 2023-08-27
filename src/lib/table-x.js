@@ -29,7 +29,6 @@ const SearchEngine = ({onInputChange}) => {
         
         if(val.length > 3){
 
-            console.log('val > 3 char', val)
             onInputChange(val)
 
         } else { 
@@ -40,14 +39,10 @@ const SearchEngine = ({onInputChange}) => {
     
 
     return(
-
         <section>
-
             <span> Search : </span>
             <input onInput={(e) => inputHandler(e)}/>
-
         </section>
-
     )
 
 
@@ -60,10 +55,8 @@ const ColumnTitleX = ({columnObject, listHandler}) => {
             {columnObject.title} 
             <div className={styles.caretsContainer}>
                 <FontAwesomeIcon icon="fa-solid fa-caret-up"  className={styles.icon}  onClick={() => listHandler(columnObject.data, true)}/>
-                <FontAwesomeIcon icon="fa-solid fa-caret-down" className={styles.icon}  onClick={() => listHandler(columnObject.data, false)} />
-                
+                <FontAwesomeIcon icon="fa-solid fa-caret-down" className={styles.icon}  onClick={() => listHandler(columnObject.data, false)} />    
             </div>
-
         </th>
     )
 
@@ -75,13 +68,9 @@ const ColumnTableX = ({columns, listHandler}) => {
 
     
     return(
-
         <tr className={styles.columnsContainer}>
-
             {columns.map((column, index)  => <ColumnTitleX  columnObject={column} listHandler={listHandler} key={index}/>)}
-
         </tr>
-
     )
 
 
@@ -93,7 +82,6 @@ const RowDataTableX = ({rowData}) => {
         return rowData[key];
     })
 
-    
     return(
         <tr className={styles.dataTableContainer}>
         {
@@ -104,15 +92,10 @@ const RowDataTableX = ({rowData}) => {
 }
 
 const RowTableX = ({data}) => {
-
-
-
     return (
-
         <>
            {data.map((row, index) =>  <RowDataTableX  rowData={row} key={index}/>)}
         </>
-       
     )
 
 }
@@ -121,142 +104,77 @@ const RowTableX = ({data}) => {
 const TableX = ({list, columns, userData}) => {
 
     //variables de state local
-    const[data, setData] = useState([...userData])
+    const [ data, setData  ] = useState([])
     const [updatedFilteredData, setUpdatedFilteredData] = useState([])
     const [pages, setPages] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
 
 
-    // tableaux vides
-    
     useEffect(() => {
-        console.log('data in TX', data)
-        console.log('list in TX', list)
-        console.log('columns in TX', columns)
-    }, [])
-
-
+        if(userData && userData.length > 0){
+            setData(userData)
+        }
+    }, [userData])
 
     useEffect(() => {
-
-        console.log('changing pages', pages)
-        console.log('page number', pageNumber)
-
         if(pages.length > 0){
             let number = pageNumber - 1
             let newData = pages[number].pageData
             setUpdatedFilteredData([...newData])
-        }
-     
-
+        } 
     }, [pages, pageNumber])
-
-
-    useEffect(() => {
-
-        console.log('updatedFilteredData', updatedFilteredData)
-        
-    }, [updatedFilteredData])
 
     //function filterData 
     const filterData = (val) => {
-
-        console.log(('into filtedData function'))
-
         const filteredData = []
-
-
         if(val !== "nope"){
-
             if(updatedFilteredData.length === 0){
-
-                console.log('no updatedFilteredData meaning 0 in it', updatedFilteredData)
                 data.forEach(element => {
-
                     Object.keys(element).forEach((v) => {
-         
-                         console.log('element[v', element[v])
                          if(element[v].includes(val)){
-         
                              if(filteredData.find(el => el === element)){
                                 return
                              }
                              filteredData.push(element)
                              return
                          }  
-         
                     })
                  })
-
-
             }
             else {
-
-                console.log('existing updatedFilteredData', updatedFilteredData)
                 updatedFilteredData.forEach(element => {
-
                     Object.keys(element).forEach((v) => {
-         
-                         console.log('element[v', element[v])
                          if(element[v].includes(val)){
-         
                              if(filteredData.find(el => el === element)){
                                  return
                              }
                              filteredData.push(element)
                              return
                          }  
-         
                     })
                  })
             }
-       
-     
         }
-
- 
-        console.log('filteredData', filteredData)
-        setUpdatedFilteredData([...filteredData])
-            
+        setUpdatedFilteredData([...filteredData])      
     }
-
-
 
     const listHandler = (modifierProp, isOrdered) => {
-
-        setUpdatedFilteredData([])
-        
+        setUpdatedFilteredData([])   
         if(isOrdered){
-
-            console.log('ordre croissant')
             let newData = updatedFilteredData.length ? updatedFilteredData : data;
-       
-
             let updatedData = newData.sort((a, b) => {
-
                 if (a[modifierProp] < b[modifierProp]) {
                   return -1;
                 }
-
                 if (a[modifierProp] > b[modifierProp]) {
                   return 1;
                 }
-
                 return 0;
-
             });
-
-        
-
             setUpdatedFilteredData([...updatedData]);
-
         } else {
-
-            console.log('ordre décroissant')
             let newData = updatedFilteredData.length ? updatedFilteredData : data;
-
             let updatedData = newData.sort((a, b) => {
-
                 if (a[modifierProp] > b[modifierProp]) {
                   return -1;
                 }
@@ -265,24 +183,15 @@ const TableX = ({list, columns, userData}) => {
                 }
                 return 0;
             });
-
-     
             setUpdatedFilteredData([...updatedData]);
-    
         }
-
-   
-
     }
-
 
     //utilitary function
     function pageDataHandler(data, limitPerPage, pages, number = 1){
-
         // si le nombre de données dépasse la limite sélectionnée 
         let dataPage = []
         let newPageData = []
-
         if(data.length > limitPerPage){
             for(let i = 0; i < limitPerPage; i++){
                 dataPage.push(data[i])
@@ -303,27 +212,16 @@ const TableX = ({list, columns, userData}) => {
             })
             return pages
         }
-      
-
     }
-
- 
 
 
     const clickEntryHandler =  (e) => {
-
-        console.log('in to clickEntryHandler')
-
         setPages(pageDataHandler(data, e.target.value, []))
-       
-   
-       
-
     }
 
     const navigationButtonHandler = (e, direction) => {
 
-        console.log('direction', direction)
+
         if(pages.length > 1 && direction === 'next'){
             let newPageNumber = pageNumber + 1
             setPageNumber(newPageNumber)
@@ -342,7 +240,7 @@ const TableX = ({list, columns, userData}) => {
 
     return(
         <>
-        { (list && columns && data) && <div className={styles.container}>
+        { (list && columns) && <div className={styles.container}>
             <div className={styles.topContainer}>
                 <ShowEntries  clickEntryHandler={clickEntryHandler} entriesList={list} />
                 <SearchEngine onInputChange={filterData} />
@@ -351,14 +249,14 @@ const TableX = ({list, columns, userData}) => {
                 <thead>
                     <ColumnTableX columns={columns} listHandler={listHandler}/>
                 </thead>
-                <tbody className={styles.bodyTableContainer}>
-                    {data && <RowTableX data={updatedFilteredData.length ? updatedFilteredData : data}/>}
-                </tbody>
+                { ((data && data.length > 0) || updatedFilteredData.length > 0) ? <tbody className={styles.bodyTableContainer}>
+                    <RowTableX data={updatedFilteredData.length ? updatedFilteredData : data}/>
+                </tbody> : <tbody className={styles.noDataContainer}><tr><td><p>No Data</p></td></tr></tbody> }
             </table>
             <footer  className={styles.containerFooter}>
 
                 <section className={styles.entriesInfoContainer}>
-                    Showing {updatedFilteredData.length && pageNumber == 1 ? 1 : 1 } to {updatedFilteredData.length ? updatedFilteredData.length : data.length}  of {data.length} entries
+                    Showing {updatedFilteredData.length && pageNumber === 1 ? 1 : 1 } to {updatedFilteredData.length ? updatedFilteredData.length : data.length}  of {data.length} entries
                 </section>
                 <section className={styles.pageNavigationContainer}>
                     {pageNumber > 1 &&  <button onClick={(e) => navigationButtonHandler(e, 'previous')}>Previous</button>}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TableX from './lib/table-x';
 import { faker, fakerEN_US } from '@faker-js/faker';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
+
 
 const Test = () => {
 
@@ -23,7 +23,7 @@ const Test = () => {
         }
     ]
 
-   // en dur
+  
     const columns= [
         { title: 'First Name', data: 'firstName' },
         { title: 'Last Name', data: 'lastName'},
@@ -54,12 +54,12 @@ const Test = () => {
         }
         setData([...fakeData])
     }, [])
-   
+
 
     return(
         <>
-            { (data && data.length > 0) && <TableX list={list} columns={columns} userData={data} />}
-        </>      
+            {data && <TableX list={list} columns={columns} userData={data} />}
+        </>
     )
 
 }
